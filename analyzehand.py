@@ -32,7 +32,13 @@ def we_have_almost_flush(hand):
 
 
 def three_lowest_cards(hand):
-    return [1,2,3] ## PLEASE CHANGE THIS SOON
+    vals = values(hand)
+    print "Three lowest"
+    print vals
+    zipvals = zip(vals,range(1,6))
+    zipvals.sort()
+    asdf,z = zip(*zipvals)
+    return z[0:3]
 
 
 cardmap = {
@@ -72,3 +78,4 @@ if __name__ == "__main__":
     print "asdf: "+str(whatwedo(["ah","4h","4h","6c","6h"]))
     print "asdf: "+str(whatwedo(["ah","3h","4h","6c","6h"]))
     print "asdf: "+str(whatwedo(["ah","3h","4h","8c","6h"]))
+    print "asdf: "+str(whatwedo(["ah","3c","4h","8c","6h"]))
