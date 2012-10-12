@@ -89,53 +89,54 @@ cardmap = {
 		"A":14,
 }
 
-def test(hand):
-	print "suit: "+str(suit(hand))
-	print "values: "+str(values(hand))
-	print "is_flush: "+str(is_flush(hand))
-	print "is_pair: "+str(is_pair(hand))
-	print "is_two_pair: "+str(is_two_pair(hand))
-	print "is_three_kind: "+str(is_three_kind(hand))
-	print "is_full_house: "+str(is_full_house(hand))
-	print "is_four_kind: "+str(is_four_kind(hand))
-	print "is_straight: "+str(is_straight(hand))
-	print "is_straight_flush: "+str(is_straight_flush(hand))
-	print "is_royal_flush: "+str(is_royal_flush(hand))
+if __name__ == "__main__":
+	def test(hand):
+		print "suit: "+str(suit(hand))
+		print "values: "+str(values(hand))
+		print "is_flush: "+str(is_flush(hand))
+		print "is_pair: "+str(is_pair(hand))
+		print "is_two_pair: "+str(is_two_pair(hand))
+		print "is_three_kind: "+str(is_three_kind(hand))
+		print "is_full_house: "+str(is_full_house(hand))
+		print "is_four_kind: "+str(is_four_kind(hand))
+		print "is_straight: "+str(is_straight(hand))
+		print "is_straight_flush: "+str(is_straight_flush(hand))
+		print "is_royal_flush: "+str(is_royal_flush(hand))
 
-print "flush"
-test(["Ah","Kh","Qh","Jh","Th"])
-print "pair"
-test(["Ah","Kh","Qh","Jh","Jh"])
-print "twopair"
-test(["Ac","Qh","Qh","Jh","Jh"])
-print "threekind"
-test(["Ah","Ah","Ah","9h","Th"])
-print "fullhouse"
-test(["Ah","Ah","Ah","Qh","Qh"])
-print "fourkind"
-test(["Ah","Ah","Ah","Ah","Qh"])
-print "tough straight"
-test(["Ah","1h","2h","3h","4h"])
-print "straight"
-test(["4h","5h","6h","7h","8h"])
+	print "flush"
+	test(["Ah","Kh","Qh","Jh","Th"])
+	print "pair"
+	test(["Ah","Kh","Qh","Jh","Jh"])
+	print "twopair"
+	test(["Ac","Qh","Qh","Jh","Jh"])
+	print "threekind"
+	test(["Ah","Ah","Ah","9h","Th"])
+	print "fullhouse"
+	test(["Ah","Ah","Ah","Qh","Qh"])
+	print "fourkind"
+	test(["Ah","Ah","Ah","Ah","Qh"])
+	print "tough straight"
+	test(["Ah","1h","2h","3h","4h"])
+	print "straight"
+	test(["4h","5h","6h","7h","8h"])
 
 
 
-print "-----"*10
+	print "-----"*10
 
-def testhand(hand, expected):
-	val = evalute(hand)
-	if val != expected:
-		print "ERROR!!!!!!!!!!!!!!!!! "
-	print "hand: "+str(hand) + " answer: "+str(val)
+	def testhand(hand, expected):
+		val = evalute(hand)
+		if val != expected:
+			print "ERROR!!!!!!!!!!!!!!!!! "
+		print "hand: "+str(hand) + " answer: "+str(val)
 
-testhand(["Ah","Kh","Qh","Jh","Th"], 9)
-testhand(["9h","8h","5h","7h","6h"], 8)
-testhand(["Qc","Qh","Qh","Qh","Jh"], 7)
-testhand(["Ah","Ah","Ah","9h","9c"], 6)
-testhand(["Ah","2h","Ah","Qh","Qh"], 5)
-testhand(["2h","5h","3h","4c","Ac"], 4)
-testhand(["Ah","Ah","Ac","3h","4c"], 3)
-testhand(["4h","4h","6h","6h","8c"], 2)
-testhand(["4h","4h","6h","7c","8h"], 1)
-testhand(["4h","Ac","6c","7h","8h"], 0)
+	testhand(["Ah","Kh","Qh","Jh","Th"], 9)
+	testhand(["9h","8h","5h","7h","6h"], 8)
+	testhand(["Qc","Qh","Qh","Qh","Jh"], 7)
+	testhand(["Ah","Ah","Ah","9h","9c"], 6)
+	testhand(["Ah","2h","Ah","Qh","Qh"], 5)
+	testhand(["2h","5h","3h","4c","Ac"], 4)
+	testhand(["Ah","Ah","Ac","3h","4c"], 3)
+	testhand(["4h","4h","6h","6h","8c"], 2)
+	testhand(["4h","4h","6h","7c","8h"], 1)
+	testhand(["4h","Ac","6c","7h","8h"], 0)
