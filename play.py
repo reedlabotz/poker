@@ -10,7 +10,13 @@ SLEEP_TIME = 1
 GET_URL = "http://no-limit-code-em.com/game_state"
 POST_URL = "http://no-limit-code-em.com/player"
 
-
+#### TEST BED
+PLAYER_KEY = '153af1f1d99f9f3f740d6f6a8ecdcd56'
+NAME = "RJ_Squared"
+GAME_ID = 660015106
+SLEEP_TIME = 1
+GET_URL = "http://treydev-poker.herokuapp.com/game_state"
+POST_URL = "http://treydev-poker.herokuapp.com/player" 
 
 
 class Game:
@@ -33,11 +39,11 @@ class Game:
 
 
    def get_game_state(self):
-      payload = {'name': NAME, 'game_id': GAME_ID, 'player_key': PLAYER_KEY}
-      r = requests.get(GET_URL, params=payload)
-      data = json.loads(r.text)
-      print data
       try:
+         payload = {'name': NAME, 'game_id': GAME_ID, 'player_key': PLAYER_KEY}
+         r = requests.get(GET_URL, params=payload)
+         data = json.loads(r.text)
+         print data
          self.replacement = data['replacement']
          self.hand = data['hand']
          self.bet = data['bet']
