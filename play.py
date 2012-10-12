@@ -1,6 +1,7 @@
 import requests
 import json
 import time
+from analyzehand import whatwedo
 
 PLAYER_KEY = '153af1f1d99f9f3f740d6f6a8ecdcd56'
 NAME = "RJ_Squared"
@@ -47,6 +48,7 @@ class Game:
       self.play = data['play']
       self.waiting = data['waiting']
 
+      self.replace()
       if self.play:
          self.play_move()
       elif self.replacement:
@@ -79,6 +81,10 @@ class Game:
 
    def replace(self):
       print "### REPLACING"
-      self.make_move("replace","1")
+      replace = whatwedo(self.hand)
+      if len(replace) == 0:
+         self.make_move("replace","0")
+      else:
+         self.make_move("replace","".join([str(x) for x in replace]))
 
 game = Game()
