@@ -1,31 +1,45 @@
 import collections
 
 def evalute(hand):
-	if is_royal_flush(hand): return 9
-	if is_straight_flush(hand): return 8
-	if is_four_kind(hand): return 7
-	if is_full_house(hand): return 6
-	if is_flush(hand): return 5
-	if is_straight(hand): return 4
-	if is_three_kind(hand): return 3
-	if is_two_pair(hand): return 2
-	if is_pair(hand): return 1
-	return 0
+	
+	x = is_royal_flush(hand)
+	if x: return (9,x)
+	x = is_straight_flush(hand)
+	if x: return (8,x)
+	x = is_four_kind(hand)
+	if x: return (7,x)
+	x = is_full_house(hand)
+	if x: return (6,x)
+	x = is_flush(hand)
+	if x: return (5,x)
+	x = is_straight(hand)
+	if x: return (4,x)
+	x = is_three_kind(hand)
+	if x: return (3,x)
+	x = is_two_pair(hand)
+	if x: return (2,x)
+	x = is_pair(hand)
+	if x: return (1,x)
+	return (0,0)
 
 
 
 def is_straight_flush(hand):
-	return is_flush(hand) and is_straight(hand)
+	if is_flush(hand) and is_straight(hand):
+		return high_val(hand)
+	return False
 
 def is_royal_flush(hand):
 	if is_straight_flush(hand):
 		vals = values(hand)
 		if 10 in vals and 14 in vals:
-			return True
+			return 14
 	return False
 
 def is_flush(hand):
-	return len(set(suit(hand))) == 1
+	if len(set(suit(hand))) == 1:
+		return high_val(hand)
+	return False
 
 allstraights = "14,1,2,3,4,5,6,7,8,9,10,11,12,13,14, ||| 1,2,3,4,5,14"
 def is_straight(hand):
@@ -34,37 +48,53 @@ def is_straight(hand):
 	strvals = ",".join([str(val) for val in vals])
 	print strvals
 	print allstraights
-	return strvals in allstraights
+	if strvals in allstraights:
+		if strvals == "2,3,4,5,14":
+			return 5
+		else:
+			return high_val(hand)
+	return False
 
+
+def test_pairs(hand,testpairset):
+	x = _num_2_uniques(hand)
+	if x[0] == testpairset:
+		return x[1][-1]
 
 def is_pair(hand):
-	return len(set(values(hand))) <= 4
+	return test_pairs(hand,pairset)
 
 def is_two_pair(hand):
-	return _num_2_uniques(hand) == twopairset
+	return test_pairs(hand,twopairset)
 
 def is_three_kind(hand):
-	return _num_2_uniques(hand) == threekindset
+	return test_pairs(hand,threekindset)
 
 def is_full_house(hand):
-	return _num_2_uniques(hand) == fullhouseset 
+	return test_pairs(hand,fullhouseset)
 
 def is_four_kind(hand):
-	return _num_2_uniques(hand) == fourkindset 
+	return test_pairs(hand,fourkindset)
 
 def _num_2_uniques(hand):
 	vals = values(hand)
 	counts = collections.Counter(vals)
-	pairs = [i for i in counts.values() if i >= 2]
-	pairs.sort()
+	pairs = [i for i in counts.iteritems() if i[1] >= 2]
+	if not pairs: return [[],[]]
+	c,p = zip(*pairs)
+	pairs = sorted(p)
 	print pairs
-	return pairs 
+	print c
+	return (pairs,c) 
 
 def suit(hand):
 	return [card[1] for card in hand]
 
 def values(hand):
 	return [cardmap[card[0]] for card in hand]
+
+def high_val(hand):
+	return sorted(values(hand))[-1]
 
 pairset = [2]
 twopairset = [2,2]
@@ -130,13 +160,13 @@ if __name__ == "__main__":
 			print "ERROR!!!!!!!!!!!!!!!!! "
 		print "hand: "+str(hand) + " answer: "+str(val)
 
-	testhand(["Ah","Kh","Qh","Jh","Th"], 9)
-	testhand(["9h","8h","5h","7h","6h"], 8)
-	testhand(["Qc","Qh","Qh","Qh","Jh"], 7)
-	testhand(["Ah","Ah","Ah","9h","9c"], 6)
-	testhand(["Ah","2h","Ah","Qh","Qh"], 5)
-	testhand(["2h","5h","3h","4c","Ac"], 4)
-	testhand(["Ah","Ah","Ac","3h","4c"], 3)
-	testhand(["4h","4h","6h","6h","8c"], 2)
-	testhand(["4h","4h","6h","7c","8h"], 1)
-	testhand(["4h","Ac","6c","7h","8h"], 0)
+	testhand(["Ah","Kh","Qh","Jh","Th"], (9,14))
+	testhand(["9h","8h","5h","7h","6h"], (8,9))
+	testhand(["Qc","Qh","Qh","Qh","Jh"], (7,12))
+	testhand(["Ah","Ah","Ah","9h","9c"], (6,14))
+	testhand(["Ah","2h","Ah","Qh","Qh"], (5,14))
+	testhand(["2h","5h","3h","4c","Ac"], (4,5))
+	testhand(["Ah","Ah","Ac","3h","4c"], (3,14))
+	testhand(["4h","4h","6h","6h","8c"], (2,6))
+	testhand(["4h","4h","6h","7c","8h"], (1,4))
+	testhand(["4h","Ac","6c","7h","8h"], (0,0))
