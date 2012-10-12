@@ -1,6 +1,6 @@
 import collections
 
-def evalute(hand):
+def evaluate(hand):
 	
 	x = is_royal_flush(hand)
 	if x: return (9,x)
@@ -91,7 +91,7 @@ def suit(hand):
 	return [card[1] for card in hand]
 
 def values(hand):
-	return [cardmap[card[0]] for card in hand]
+	return [cardmap[card[0].upper()] for card in hand]
 
 def high_val(hand):
 	return sorted(values(hand))[-1]
@@ -155,7 +155,7 @@ if __name__ == "__main__":
 	print "-----"*10
 
 	def testhand(hand, expected):
-		val = evalute(hand)
+		val = evaluate(hand)
 		if val != expected:
 			print "ERROR!!!!!!!!!!!!!!!!! "
 		print "hand: "+str(hand) + " answer: "+str(val)
