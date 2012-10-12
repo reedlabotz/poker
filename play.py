@@ -79,14 +79,17 @@ class Game:
       print "### PLAYING"
       o = odds(self.hand)
       print "** odds: %s"%str(o)
-
-      if o < 0.1:
+      if self.min_bet == 0:
+         self.make_move("call","")
+      elif o < 0.1:
          self.make_move("fold","")
       elif self.bet < self.min_bet:
          need_to_raise = self.min_bet - self.bet
          if o >= 0.9:
             self.make_move("raise",self.max_bet-self.bet)
          elif o > 0.3 and self.min_bet/self.stack < o*0.5:
+            self.make_move("call","")
+         elif o > 0.1 and self.min_bet/self.stack < o*0.1:
             self.make_move("call","")
          else:
             self.make_move("fold","")
