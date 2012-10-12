@@ -10,13 +10,7 @@ SLEEP_TIME = 1
 GET_URL = "http://no-limit-code-em.com/game_state"
 POST_URL = "http://no-limit-code-em.com/player"
 
-#### TEST BED
-PLAYER_KEY = '6b55c1ecc710ba942137d41c3f1ac255'
-NAME = "script_it"
-GAME_ID = 660015106
-SLEEP_TIME = 1
-GET_URL = "http://treydev-poker.herokuapp.com/game_state"
-POST_URL = "http://treydev-poker.herokuapp.com/player" 
+
 
 
 class Game:
