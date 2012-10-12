@@ -7,16 +7,16 @@ PLAYER_KEY = '153af1f1d99f9f3f740d6f6a8ecdcd56'
 NAME = "RJ_Squared"
 GAME_ID = 660015106
 SLEEP_TIME = 1
-GET_URL = "http://no-limit-code-em.com/sandbox/current_turn" #"http://no-limit-code-em.com/game_state"
-POST_URL = "http://no-limit-code-em.com/sandbox/player_action" #"http://no-limit-code-em.com/player"
+GET_URL = "http://no-limit-code-em.com/game_state"
+POST_URL = "http://no-limit-code-em.com/player"
 
-
+#### TEST BED
 PLAYER_KEY = '6b55c1ecc710ba942137d41c3f1ac255'
 NAME = "script_it"
 GAME_ID = 660015106
 SLEEP_TIME = 1
 GET_URL = "http://treydev-poker.herokuapp.com/game_state"
-POST_URL = "http://treydev-poker.herokuapp.com/player_action" 
+POST_URL = "http://treydev-poker.herokuapp.com/player" 
 
 
 class Game:
@@ -85,15 +85,16 @@ class Game:
       elif self.bet < self.min_bet:
          need_to_raise = self.min_bet - self.bet
          if o >= 0.9:
-            self.make_move("raise",self.max_bet-self.bet )
-         elif o > 0.5:
-            self.make_move("call","")
-         elif o > 0.3 and self.min_bet/self.stack < 0.5:
+            self.make_move("raise",self.max_bet-self.bet)
+         elif o > 0.3 and self.min_bet/self.stack < o*0.5:
             self.make_move("call","")
          else:
             self.make_move("fold","")
       else:
-         self.make_move("bet",self.min_bet)
+         bet = self.min_bet
+         if o >= 0.5 :
+            bet = max(bet, int(self.stack * o * 0.10));
+         self.make_move("bet",bet)
 
 
    def replace(self):
