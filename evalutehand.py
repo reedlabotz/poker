@@ -59,7 +59,7 @@ def is_straight(hand):
 def test_pairs(hand,testpairset):
 	x = _num_2_uniques(hand)
 	if x[0] == testpairset:
-		return x[1][-1]
+		return x[1]
 
 def is_pair(hand):
 	return test_pairs(hand,pairset)
@@ -85,7 +85,7 @@ def _num_2_uniques(hand):
 	pairs = sorted(p)
 	print pairs
 	print c
-	return (pairs,c) 
+	return (pairs,list(c)) 
 
 def suit(hand):
 	return [card[1] for card in hand]
@@ -162,11 +162,11 @@ if __name__ == "__main__":
 
 	testhand(["Ah","Kh","Qh","Jh","Th"], (9,14))
 	testhand(["9h","8h","5h","7h","6h"], (8,9))
-	testhand(["Qc","Qh","Qh","Qh","Jh"], (7,12))
-	testhand(["Ah","Ah","Ah","9h","9c"], (6,14))
+	testhand(["Qc","Qh","Qh","Qh","Jh"], (7,[12]))
+	testhand(["Ah","Ah","Ah","9h","9c"], (6,[9,14]))
 	testhand(["Ah","2h","Ah","Qh","Qh"], (5,14))
 	testhand(["2h","5h","3h","4c","Ac"], (4,5))
-	testhand(["Ah","Ah","Ac","3h","4c"], (3,14))
-	testhand(["4h","4h","6h","6h","8c"], (2,6))
-	testhand(["4h","4h","6h","7c","8h"], (1,4))
+	testhand(["Ah","Ah","Ac","3h","4c"], (3,[14]))
+	testhand(["4h","4h","6h","6h","8c"], (2,[4,6]))
+	testhand(["4h","4h","6h","7c","8h"], (1,[4]))
 	testhand(["4h","Ac","6c","7h","8h"], (0,0))
