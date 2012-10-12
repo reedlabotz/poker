@@ -20,6 +20,23 @@ def whatwedo(hand):
 
     return three_lowest_cards(hand)
 
+def odds(hand):
+    howsit = evaluate(hand)
+    if howsit[0] >= 4:
+        return 1
+    if howsit[0] == 3:
+        return 0.9
+    if howsit[0] == 2:
+        return 0.8
+    if howsit[0] == 1:
+        return howsit[1][0]/14.0 / 1.7 
+
+    closesuit = we_have_almost_flush(hand)
+    if closesuit:
+        return 0.2
+
+    return highest(hand)/14.0 / 10.0
+
 
 def we_have_almost_flush(hand):
     suits = suit(hand)
@@ -40,6 +57,10 @@ def three_lowest_cards(hand):
     asdf,z = zip(*zipvals)
     return z[0:3]
 
+
+
+def highest(hand):
+    return sorted(values(hand))[-1]
 
 cardmap = {
         1:"1",
@@ -79,3 +100,11 @@ if __name__ == "__main__":
     print "asdf: "+str(whatwedo(["ah","3h","4h","6c","6h"]))
     print "asdf: "+str(whatwedo(["ah","3h","4h","8c","6h"]))
     print "asdf: "+str(whatwedo(["ah","3c","4h","8c","6h"]))
+    print "XXXXXXXXXXXX"*10
+    print "astf: "+str(odds(["ah","4h","2h","6h","3h"]))
+    print "asdf: "+str(odds(["ah","4h","6h","6c","6h"]))
+    print "asdf: "+str(odds(["ah","4h","4h","6c","6h"]))
+    print "asdf: "+str(odds(["ah","3h","4h","6c","6h"]))
+    print "asdf: "+str(odds(["ah","3h","4h","8c","6h"]))
+    print "asdf: "+str(odds(["ah","3c","4h","8c","6h"]))
+    print "asdf: "+str(odds(["ah","3c","4h","3c","6h"]))
