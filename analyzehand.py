@@ -25,11 +25,11 @@ def odds(hand):
     if howsit[0] >= 5:
         return 1
     if howsit[0] >= 4:
-        return 0.65
+        return 0.8
     if howsit[0] == 3:
-        return 0.6
+        return 0.7
     if howsit[0] == 2:
-        return 0.51
+        return 0.6
     if howsit[0] == 1:
         return howsit[1][0]/14.0 / 1.7 
 
